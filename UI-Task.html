@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookMyCollab</title>
+    <style>
+        /* Global Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #fafafa;
+            color: #333;
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Header and Navigation */
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 2rem;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        nav a {
+            color: #333;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+        }
+        nav a:hover {
+            color: #7c3aed;
+        }
+        nav a h1 {
+            font-size: 2rem;
+            padding-right: 12rem;
+        }
+        nav .login-btn {
+            background-color: #7c3aed;
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 5px;
+        }
+
+        /* Hero Section */
+        section.hero {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 4rem 1rem;
+            background-color: #f7f7f7;
+            text-align: center;
+        }
+        .hero-content {
+            max-width: 1000px;
+            width: 100%;
+        }
+        .hero-content h2 {
+            font-size: 2.5rem;
+            color: #7c3aed;
+        }
+        .hero-content p {
+            font-size: 1.25rem;
+            margin: 1rem 0 2rem;
+        }
+        .hero-content form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .hero-content select, .hero-content input, .hero-content button {
+            margin: 0.5rem;
+            padding: 0.75rem;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+        }
+        .hero-content button {
+            background-color: #7c3aed;
+            color: white;
+            cursor: pointer;
+            border: none;
+        }
+        .hero-content button:hover {
+            background-color: #4b23a6;
+        }
+
+        /* Creator Grid */
+        .creator-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            padding: 2rem;
+        }
+        .creator-card {
+            background-color: white;
+            border-radius: 10px;
+            text-align: center;
+            padding: 2rem 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .creator-card img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            background-color: #ddd;
+        }
+        .creator-card h3 {
+            font-size: 1.25rem;
+        }
+        .creator-card p {
+            color: #7c3aed;
+        }
+        .compare-btn {
+            background-color: #7c3aed;
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 5px;
+        }
+
+        /* Categories Grid */
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            padding: 2rem;
+        }
+        .category-card {
+            background-color: white;
+            border-radius: 10px;
+            text-align: center;
+            padding: 2rem 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .category-card img {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 1rem;
+            background-color: #ddd;
+        }
+
+        /* Spotlight Section */
+        .spotlight {
+            background-color: #e6f2ff;
+            border-radius: 10px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin: 2rem auto;
+        }
+        .spotlight img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-bottom: 1.5rem;
+        }
+        .spotlight h2 {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Join Section */
+        .join-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            padding: 2rem;
+        }
+        .join-card {
+            background-color: white;
+            border-radius: 10px;
+            text-align: center;
+            padding: 2rem 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .join-card button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        .live-campaigns {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .live-campaigns h2 {
+            color: #6c5ce7;
+            font-size: 24px;
+        }
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .info-box {
+            background-color: #f8f8f8;
+            border-radius: 15px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .info-content {
+            flex: 1;
+        }
+        .info-image {
+            flex: 0 0 40%;
+            text-align: right;
+        }
+        .info-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .social-icons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .social-icons span {
+            width: 20px;
+            height: 20px;
+            background-color: #6c5ce7;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .section-title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .section-title h3 {
+            color: #7e22ce;
+            font-size: 24px;
+            margin: 0;
+            text-align: justify;
+        }
+        .section-title .category-title{
+            color: #9d7955;
+        }
+        .category-section {
+            background-color: #f5f0eb;
+        }
+        .category-type{
+            position: absolute;
+            font-size: xx-small;
+            color: red;
+            border-radius: 30%;
+            padding: 2px;
+            background-color: lightpink;
+        }
+        .section-title p {
+            color: #6b7280;
+        }
+        .view-all {
+            text-align: right;
+            margin-top: 20px;
+        }
+        .view-all button {
+            background-color: #fff;
+            color: #6b7280;
+            border: 1px solid #6b7280;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        h2 {
+            margin: 0 0 10px 0;
+            color: #333;
+        }
+        p {
+            color: #666;
+            margin: 0;
+        }
+        .live-campaigns {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .live-campaigns h2 {
+            color: #6c5ce7;
+            font-size: 24px;
+        }
+        .carousel {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+        }
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        .carousel-item {
+            min-width: 100%;
+            box-sizing: border-box;
+        }
+        .carousel-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .carousel-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0,0,0,0.5);
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+            border-radius: 50%;
+        }
+        .carousel-control.left { left: 10px; }
+        .carousel-control.right { right: 10px; }
+        .carousel-indicators {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 5px;
+        }
+        .carousel-indicators span {
+            width: 10px;
+            height: 10px;
+            background-color: #fff;
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .carousel-indicators span.active {
+            background-color: #6c5ce7;
+        }
+        .associated-container {
+            width: 80%;
+            margin: 0 auto;
+            text-align: center;
+            padding: 50px 0;
+        }
+
+        .associated-brands {
+            background-color: #fff;
+            padding: 50px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .associated-brands h2 {
+            color: #6a0dad;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .associated-brands p {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            padding: 2rem;
+        }
+        .step {
+            text-align: center;
+        }
+        .step-number {
+            background-color: #007bff;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .section-cont{
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+        }
+        /* Footer Section */
+        .footer {
+            background-color: #f5f0eb;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .footer-column {
+            flex: 1;
+            padding: 10px;
+        }
+        .footer-column ul {
+            list-style-type: none;
+        }
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .footer-column p, .footer-column a {
+            font-size: 14px;
+            color: #333;
+            text-decoration: none;
+            margin: 5px 0;
+        }
+        .footer-column a:hover {
+            text-decoration: underline;
+        }
+        .footer-icons {
+            margin-top: 10px;
+        }
+        .footer-icons a {
+            margin-right: 10px;
+            color: #333;
+            font-size: 18px;
+        }
+        .footer-bottom {
+            background-color: #3a3a3a;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 14px;
+        }
+        .footer-bottom div {
+            display: inline-block;
+            margin: 0 20px;
+        }
+        .footer-bottom div:last-child {
+            margin-right: 0;
+        }
+        .footer-copyright {
+            background-color: #e0e0e0;
+            color: #333;
+            /* text-align: center; */
+            padding: 10px 50px 0 50px;
+            font-size: 14px;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (min-width: 768px) {
+            .hero-content {
+                text-align: left;
+                margin: 0 auto;
+                max-width: 80%;
+            }
+            .hero-content form {
+                flex-direction: row;
+                justify-content: center;
+            }
+            .hero-image {
+                max-width: 45%;
+            }
+        }
+        @media (min-width: 1024px) {
+            nav {
+                padding: 1rem 5rem;
+            }
+            section.hero {
+                flex-direction: row;
+                text-align: left;
+                padding: 5rem 2rem;
+            }
+            .hero-content {
+                max-width: 60%;
+            }
+            .hero-image {
+                max-width: 40%;
+            }
+            .join-section {
+                flex-direction: row;
+                justify-content: space-around;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header and Navigation -->    
+    <nav>
+        <a href="#"><h1>BookMyCollab</h1></a>        
+        <a href="#">What We Do</a>
+        <a href="#">How It Works</a>
+        <a href="#">Join Us As Brand</a>
+        <a href="#">Join Us As Creator</a>
+        <a href="#" class="login-btn">Login</a>
+    </nav>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>👋 Simplifying Influencer Marketing For You!</h2>
+            <p>Explore creators across YouTube, Instagram & Facebook to curate unique content for your brand.</p>
+            <form>
+                <select>
+                    <option>Facebook</option>
+                    <option>Instagram</option>
+                    <option>Snapchat</option>
+                    <option>YouTube</option>
+                </select>
+                <select>
+                    <option>Select Category</option>
+                    <option>Entertainment</option>
+                    <option>Fashion</option>
+                    <option>Travel</option>
+                </select>
+                <button type="submit">Search</button>
+            </form>
+        </div>
+        <div class="hero-image">
+            <img src="https://via.placeholder.com/500x600" alt="Influencer Image">
+        </div>
+    </section>
+
+    <!-- OG Creators Section -->
+    <section>
+        <div class="section-cont">
+            <div class="section-title">
+                <h3>
+                 The OG Creators
+                </h3>
+                <p>
+                 Lorem ipsum dolor sit amet, consectetur adipiscing
+                </p>
+               </div>
+            <div class="view-all">
+                <button>
+                 View All
+                </button>
+               </div>
+            </div>
+        <div class="creator-grid">
+            <div class="creator-card">
+                <span class="category-type">Entertainment</span>
+                <img src="https://via.placeholder.com/100x100" alt="Tanmay Bhatt">
+                <h3>Tanmay Bhatt</h3>
+                <p>@tanmaybhat</p>
+                <p>1.9M Followers</p>
+                <button class="compare-btn"> Compare </button>
+            </div>
+            <div class="creator-card">
+                <span class="category-type">Entertainment</span>
+                <img src="https://via.placeholder.com/100x100" alt="Kusha Kapila">
+                <h3>Kusha Kapila</h3>
+                <p>@kushakapila</p>
+                <p>3.7M Followers</p>
+                <button class="compare-btn"> Compare </button>
+            </div>
+            <div class="creator-card">
+                <span class="category-type">Entertainment</span>
+                <img src="https://via.placeholder.com/100x100" alt="Rohan Joshi">
+                <h3>Rohan Joshi</h3>
+                <p>@mojorojo</p>
+                <p>597K Followers</p>
+                <button class="compare-btn"> Compare </button>
+            </div>
+            <div class="creator-card">
+                <span class="category-type">Entertainment</span>
+                <img src="https://via.placeholder.com/100x100" alt="Bhuvan Bam">
+                <h3>Bhuvan Bam</h3>
+                <p>@bhuvan.bam22</p>
+                <p>19.4M Followers</p>
+                <button class="compare-btn"> Compare </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="category-section">
+        <div class="section-cont">
+            <div class="section-title">
+                <h3 class="category-title">
+                 Categories
+                </h3>
+            </div>
+            <div class="view-all">
+                <button>
+                 View All
+                </button>
+               </div>
+            </div>
+        <div class="category-grid">
+            <div class="category-card">
+                <img src="https://via.placeholder.com/50x50" alt="The Foodies">
+                <p>The Foodies</p>
+            </div>
+            <div class="category-card">
+                <img src="https://via.placeholder.com/50x50" alt="The Techies">
+                <p>The Techies</p>
+            </div>
+            <div class="category-card">
+                <img src="https://via.placeholder.com/50x50" alt="The Fashionistas">
+                <p>The Fashionistas</p>
+            </div>
+            <div class="category-card">
+                <img src="https://via.placeholder.com/50x50" alt="The Podcasters">
+                <p>The Podcasters</p>
+            </div>
+            <div class="category-card">
+                <img src="https://via.placeholder.com/50x50" alt="The Travellers">
+                <p>The Travellers</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-cont">
+            <div class="section-title">
+                <h3>
+                 In The Spotlight
+                </h3>
+                <p>
+                 Lorem ipsum dolor sit amet, consectetur adipiscing
+                </p>
+               </div>
+            <div class="view-all">
+                <button>
+                 View All
+                </button>
+               </div>
+            </div>
+        <div class="creator-grid">
+            <div class="creator-card">
+                <span class="category-type">Finance</span>
+                <img src="https://via.placeholder.com/100x100" alt="Sharan Hegde">
+                <h3>Sharan Hegde</h3>
+                <p>@financewithsharan</p>
+                <p>2.6M Followers</p>
+            </div>
+            <div class="creator-card">
+                <span class="category-type">Entertainment</span>
+                <img src="https://via.placeholder.com/100x100" alt="Dolly Singh">
+                <h3>Dolly Singh</h3>
+                <p>@dollysingh</p>
+                <p>1.6M Followers</p>
+            </div>
+            <div class="creator-card">
+                <span class="category-type">Entertainment</span>
+                <img src="https://via.placeholder.com/100x100" alt="Kritika Khurana">
+                <h3>Kritika Khurana</h3>
+                <p>@thatbohogirl</p>
+                <p>1.8M Followers</p>
+            </div>
+            <div class="creator-card">
+                <span class="category-type">Entertainment</span>
+                <img src="https://via.placeholder.com/100x100" alt="Bhuvan Bam">
+                <h3>Bhuvan Bam</h3>
+                <p>@bhuvan.bam22</p>
+                <p>19.4M Followers</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Spotlight Section -->
+    <section class="spotlight">
+        <img src="https://via.placeholder.com/150x150" alt="Aman K.">
+        <div>
+            <h2>Meet The Design Creator</h2>
+            <h3>Aman K.</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-cont">
+            <div class="section-title">
+                <h3>
+                 On The Rise
+                </h3>
+                <p>
+                 Lorem ipsum dolor sit amet, consectetur adipiscing
+                </p>
+               </div>
+            <div class="view-all">
+                <button>
+                 View All
+                </button>
+               </div>
+            </div>
+        <div class="creator-grid">
+            <div class="creator-card">
+                <span class="category-type">Entertainment</span>
+                <img src="https://via.placeholder.com/100x100" alt="Tanmay Bhatt">
+                <h3>Tanmay Bhatt</h3>
+                <p>@tanmaybhat</p>
+                <p>1.9M Followers</p>
+            </div>
+            <div class="creator-card">
+                <span class="category-type">Entertainment</span>
+                <img src="https://via.placeholder.com/100x100" alt="Kusha Kapila">
+                <h3>Kusha Kapila</h3>
+                <p>@kushakapila</p>
+                <p>3.7M Followers</p>
+            </div>
+            <div class="creator-card">
+                <span class="category-type">Entertainment</span>
+                <img src="https://via.placeholder.com/100x100" alt="Rohan Joshi">
+                <h3>Rohan Joshi</h3>
+                <p>@mojorojo</p>
+                <p>597K Followers</p>
+            </div>
+            <div class="creator-card">
+                <span class="category-type">Entertainment</span>
+                <img src="https://via.placeholder.com/100x100" alt="Bhuvan Bam">
+                <h3>Bhuvan Bam</h3>
+                <p>@bhuvan.bam22</p>
+                <p>19.4M Followers</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Join Section -->
+    <section class="join-section">
+        <div class="join-card">
+            <h3>Join As a Brand</h3>
+            <button>Join as a Brand</button>
+        </div>
+        <div class="join-card">
+            <h3>Join As a Creator</h3>
+            <button>Join as a Creator</button>
+        </div>
+    </section>
+
+    <div class="section-container">
+        <div class="info-box">
+            <div class="info-content">
+                <div class="social-icons">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <h2>Phasellus accumsan imperdiet tempor. Cras tincidunt, arcu</h2>
+                <p>Integer id augue iaculis, iaculis orci ut, blandit quam. Donec in elit auctor, finibus quam in, phar</p>
+            </div>
+            <div class="info-image">
+                <img src="https://via.placeholder.com/300x200" alt="Info graphic">
+            </div>
+        </div>
+        
+        <div class="live-campaigns">
+            <h2>Live Campaigns</h2>
+        </div>
+        
+        <div class="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item">
+                    <img src="https://via.placeholder.com/800x400" alt="Campaign 1">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://via.placeholder.com/800x400" alt="Campaign 2">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://via.placeholder.com/800x400" alt="Campaign 3">
+                </div>
+            </div>
+            <a href="#" class="carousel-control left">&lt;</a>
+            <a href="#" class="carousel-control right">&gt;</a>
+            <div class="carousel-indicators">
+                <span class="active"></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <section>
+        <div class="section-cont">
+        <div class="section-title">
+            <h3>
+             UGC
+            </h3>
+            <p>
+             Lorem ipsum dolor sit amet, consectetur adipiscing
+            </p>
+           </div>
+        <div class="view-all">
+            <button>
+             View All
+            </button>
+           </div>
+        </div>
+        <div class="creator-grid">
+            <div class="creator-card">
+                <span class="category-type">Finance</span>
+                <img src="https://via.placeholder.com/100x100" alt="Sharan Hegde">
+                <h3>Sharan Hegde</h3>
+                <p>@financewithsharan</p>
+                <p>2.6M Followers</p>
+            </div>
+            <div class="creator-card">
+                <span class="category-type">Entertainment</span>
+                <img src="https://via.placeholder.com/100x100" alt="Dolly Singh">
+                <h3>Dolly Singh</h3>
+                <p>@dollysingh</p>
+                <p>1.6M Followers</p>
+            </div>
+            <div class="creator-card">
+                <span class="category-type">Entertainment</span>
+                <img src="https://via.placeholder.com/100x100" alt="Kritika Khurana">
+                <h3>Kritika Khurana</h3>
+                <p>@thatbohogirl</p>
+                <p>1.8M Followers</p>
+            </div>
+            <div class="creator-card">
+                <span class="category-type">Entertainment</span>
+                <img src="https://via.placeholder.com/100x100" alt="Bhuvan Bam">
+                <h3>Bhuvan Bam</h3>
+                <p>@bhuvan.bam22</p>
+                <p>19.4M Followers</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="associated-container">
+        <div class="associated-brands">
+            <h2>
+             Associated Brands
+            </h2>
+            <p>
+             Lorem ipsum dolor sit amet, consectetur adipiscing
+            </p>
+            <div style="display: flex; gap: 20px;">
+                <img src="https://via.placeholder.com/1200x400" alt="Brand 1" style="width: 1000px; height: 400px; object-fit: contain;">
+            </div>
+        </div>
+    </section>
+    <!-- How It Works Section -->
+    <section>
+        <h2>How it works</h2>
+        <div class="how-it-works">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Search</h3>
+                <p>Find creators suited for your campaign.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Share & Review</h3>
+                <p>Collaborate and review content.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Pay Securely</h3>
+                <p>Pay securely through our platform.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer">
+            <div class="footer-column">
+                <h3>BookMyCollab</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut</p>
+                <div class="footer-icons">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="#">About</a></li>
+                    <li>Career</li>
+                    <li>Terms & Conditions</li>
+                    <li>Privacy Policy</li>
+                    <li>Refund Policy</li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Join us</h3>
+                <ul>
+                    <li>Join as a brand</li>
+                    <li>Join as a creator</li>
+                    <li>Find creator</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>No Upfront Payment</div>
+            <div>Verified Creators</div>
+            <div>Inbuilt Messengers</div>
+            <div>Secure and Timely Payment</div>
+        </div>
+        <div class="footer-copyright">
+            © Copyright • All Rights Reserved
+            <span style="float: right;">BookMyCollab 2024</span>
+        </div>
+    </footer>
+    <script>
+        const carousel = document.querySelector('.carousel-inner');
+        const items = document.querySelectorAll('.carousel-item');
+        const indicators = document.querySelectorAll('.carousel-indicators span');
+        let currentIndex = 0;
+
+        function showSlide(index) {
+            carousel.style.transform = `translateX(-${index * 100}%)`;
+            indicators.forEach((ind, i) => {
+                ind.classList.toggle('active', i === index);
+            });
+        }
+
+        document.querySelector('.carousel-control.right').addEventListener('click', (e) => {
+            e.preventDefault();
+            currentIndex = (currentIndex + 1) % items.length;
+            showSlide(currentIndex);
+        });
+
+        document.querySelector('.carousel-control.left').addEventListener('click', (e) => {
+            e.preventDefault();
+            currentIndex = (currentIndex - 1 + items.length) % items.length;
+            showSlide(currentIndex);
+        });
+
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                currentIndex = index;
+                showSlide(currentIndex);
+            });
+        });
+    </script>
+</body>
+</html>
